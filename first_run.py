@@ -6,20 +6,26 @@ import numpy
 
 extract_scores = lambda y:y.score
 class student:
-    def __init__(self,score):
+    def __init__(self,id,score,previous_partners{1:2, 2:3,4:5}):
+        self.id = id
         self.score = score
+        self.previous_partners = previous_partners
     def __str__(self):
         return "%d" % self.score
     def __repr__(self):
         return self.__str__()
-
+    def proximity(self,other):
+        if other.id in self.previous_partners:
+            return self.previous_partners[other.id]
+        return 0
+        
 history_record = { "1": { "2": 2, "3": 3}}
 
 def history_score_group(group):
     total_recurrences = 0
     for i in range(0, len(group)):
             for j in range(i+1,len(group)):
-                total_recurrences += history_record[str(i)][str(j)]
+                total_recurrences += group[i].proximity(group[j])
     return total_recurrences
 
 def test_score_group(group):
